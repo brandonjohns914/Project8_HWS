@@ -1,7 +1,7 @@
 ST|EPH|EN: First Name of GSW Best Player
 WA|RRI|ORS: Golden State 
 TH|OMP|SON: Shooting Guard
-GRE|EEN: Power Forward
+GR|EEN: Power Forward
 LO|ON|EY: Center
 WI|GGI|NS: Small Forward
 CU|RR|Y: Point Guard

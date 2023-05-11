@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     //UITextField
     var currentAnswer: UITextField!                                                             //Users Current answer
-   
+    
     //Button
     var letterButtons = [UIButton]()
     var activatedButtons = [UIButton]()
@@ -37,10 +37,20 @@ class ViewController: UIViewController {
         }//didset
     }//score
     
+    var move_up_score: Int = 0
+    
+    var hiddenButtons = 0
+    {
+        didSet
+        {
+            print("Hidden Buttons: \(hiddenButtons)")
+        }
+    }
+    
     
     override func loadView() {
         view = UIView()                                                                                         // parent of all UIkit
-                                                                                                                //creates a big empty view
+        //creates a big empty view
         view.backgroundColor = .white
         
         
@@ -70,6 +80,7 @@ class ViewController: UIViewController {
         answersLabel.textAlignment = .right
         answersLabel.numberOfLines = 0
         answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        
         view.addSubview(answersLabel)
         
         
@@ -80,6 +91,7 @@ class ViewController: UIViewController {
         currentAnswer.textAlignment = .center
         currentAnswer.font = UIFont.systemFont(ofSize: 44)
         currentAnswer.isUserInteractionEnabled = false                                           // stops keyboard from showing up so users cannot type
+        
         view.addSubview(currentAnswer)
         
         
@@ -87,9 +99,10 @@ class ViewController: UIViewController {
         submit.translatesAutoresizingMaskIntoConstraints = false
         submit.setTitle("SUBMIT", for: .normal)
         submit.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)            // user pressed call submitTapped
-                                                                                                //self = submit button
-                                                                                                // .touchUpInside user pressed down on the botton
-                                                                                                // user pressed submit call submit
+        //self = submit button
+        // .touchUpInside user pressed down on the botton
+        // user pressed submit call submit
+        submit.layer.borderColor = UIColor.red.cgColor
         view.addSubview(submit)
         
         
@@ -97,44 +110,47 @@ class ViewController: UIViewController {
         clear.translatesAutoresizingMaskIntoConstraints = false
         clear.setTitle("CLEAR", for: .normal)
         submit.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)            // user pressed call clearTapped
-                                                                                                //self = submit button
-                                                                                                // .touchUpInside user pressed down on the botton
-                                                                                                // user pressed submit call submit
+        //self = submit button
+        // .touchUpInside user pressed down on the botton
+        // user pressed submit call submit
+        
         view.addSubview(clear)
         
         
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsView.layer.borderWidth = 1
+        buttonsView.layer.borderColor = UIColor.lightGray.cgColor
         view.addSubview(buttonsView)
         
-                                                                                                // sets the constraints an array
+        // sets the constraints an array
         NSLayoutConstraint.activate([
-                                                                                                //layoutMarginsGuide = the layouts dont run into the left and right margins of the screen
-                                                                                                //              indented on each edge
+            //layoutMarginsGuide = the layouts dont run into the left and right margins of the screen
+            //              indented on each edge
             
             
             scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),          // top pins it to the top of the screen
             scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor), // right pins it to the right of the screen
             
             
-                                                                                                    // pin the top of the clues label to the bottom of the score label
+            // pin the top of the clues label to the bottom of the score label
             cluesLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),                      // clues label top is equal to score bottom
             
-                                                                                                                    // pin the leading edge of the clues label to the leading edge of our layout margins
-                                                                                                                    // adding 100 for some space
+            // pin the leading edge of the clues label to the leading edge of our layout margins
+            // adding 100 for some space
             cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),   //left
-                                                                                                                  // leading edge to the leading anchor
-                                                                                                                  // constant of 100 for space
+            // leading edge to the leading anchor
+            // constant of 100 for space
             cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: -100),
-                                                                                                                // Margin from the left
-                                                                                                                // 60% of the screen and subtract 100 for indent
-                                                                                                        
+            // Margin from the left
+            // 60% of the screen and subtract 100 for indent
             
-                                                                                                                //pin the top of the answers label to the bottom of the score label
+            
+            //pin the top of the answers label to the bottom of the score label
             answersLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),                                // equal to the score label
             answersLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
-                                                                                                                //answers label  trailing edge of margins minus 100
+            //answers label  trailing edge of margins minus 100
             answersLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
-                                                                                                                // width of 40% of the screen minus 100
+            // width of 40% of the screen minus 100
             answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),                              //answers matches height of clues
             
             
@@ -159,32 +175,34 @@ class ViewController: UIViewController {
             buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),                                  // anchoring it horizontally
             buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor, constant: 20),                       // 20 points space from submit button
             buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant:  -20)  // setting it to view bottom layout minus 20
-            ]) // end of array
+        ]) // end of array
         
         let width = 150
         let height = 80
         
-                                                                                                                // 20 buttons 4X5 grid
+        // 20 buttons 4X5 grid
         for row in 0..<4                                                                                        //button rows of 0-3
         {
             for column in 0..<5                                                                                 // button columns 0-5
             {
                 
-                                                                                                                //creates new button of size 36
+                //creates new button of size 36
                 let letterButton = UIButton(type: .system)
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
+                
                 
                 
                 letterButton.setTitle("WWW", for: .normal)                                                      //button temp text
                 
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)              // call letterTapped when any letterbutton is tapped
                 
-                                                                                                                // calculates frame of the button using row and cols
+                // calculates frame of the button using row and cols
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
                 
                 buttonsView.addSubview(letterButton)                                                            //add to buttons view
                 letterButtons.append(letterButton)                                                              // add to buttons array
+                
             }//column
         }//row
     }//loadView
@@ -198,14 +216,14 @@ class ViewController: UIViewController {
         
         
     }//viewDidLoad
-
+    
     @objc func letterTapped(_ sender: UIButton)
     {
         guard let buttonTitle = sender.titleLabel?.text else {return}                                           // if not title exit letter tapped
         
         currentAnswer.text = currentAnswer.text?.appending(buttonTitle)                                         // moves current answer to text view
         activatedButtons.append(sender)                                                                         // sender when the user tapps  it
-                                                                                                                // holds all buttons player as tapped before submitted
+        // holds all buttons player as tapped before submitted
         
         sender.isHidden = true                                                                                  // hides button after is tapped
         
@@ -225,9 +243,12 @@ class ViewController: UIViewController {
             answersLabel.text = splitsAnswers?.joined(separator: "\n")                                         // joins the buttons that were tapped into one word
             
             currentAnswer.text = ""
-            score += 1                                                                                         // adds score
+            score += 1                                                                                      // adds score
             
-            if score % 7 == 0                                                                                  // 7 questions all answered move on to next level
+            move_up_score += 1                                                                              // after all answers are answered move up to 7 
+            
+            
+            if move_up_score % 7 == 0                                                                                  // 7 questions all answered move on to next level
             {
                 let ac = UIAlertController(title: "Well Done!", message: "Are you ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Lets Go!", style: .default, handler: levelUp))
@@ -235,26 +256,33 @@ class ViewController: UIViewController {
             }//end if
             
         }//solutionPosition
+        else
+        {
+            let error_Alert_Controller = UIAlertController(title: "Thats not right", message: "Please try again", preferredStyle: .alert)
+            error_Alert_Controller.addAction(UIAlertAction(title: "OK", style: .default))
+            present(error_Alert_Controller, animated: true)
+            score -= 1
+        }
         
     }//submitTapped
     
     
     func levelUp(action: UIAlertAction)
     {
-        level += 1                                                                                              // moves on to level2.txt and so on 
+        level += 1                                                                                              // moves on to level2.txt and so on
         solutions.removeAll(keepingCapacity: true)                                                              // keeps first level answers moves onto next level
         loadLevel()                                                                                             //loads the new level
         
         for button in letterButtons
         {
             button.isHidden = false
-                                                                                                                // shows buttons again on new level
+            // shows buttons again on new level
         }//end for
     }//levelUp
     
     
-
-
+    
+    
     @objc func clearTapped(_ sender: UIButton)
     {
         currentAnswer.text = ""                                                                             // clears current answer text
@@ -276,7 +304,7 @@ class ViewController: UIViewController {
         var solutionString: String  = ""
         var letterBits = [String]()
         
-        if let levelFileURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt")                                       
+        if let levelFileURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt")
         {                                                                                                   //if file exists
             if let levelContents = try? String(contentsOf: levelFileURL)                                    // if found convert to string
             {
@@ -286,10 +314,10 @@ class ViewController: UIViewController {
                 
                 for (index, line) in lines.enumerated()                                                     //Tuple
                 {                                                                                           //  index each time ran
-                                                                                                            // line each line
-                
+                    // line each line
+                    
                     let parts = line.components(separatedBy: ": ")                                          // divides string text at the :
-                                                                                                
+                    
                     let answer = parts[0]                                                                   //left
                     let clue = parts[1]                                                                     //right
                     
@@ -323,6 +351,21 @@ class ViewController: UIViewController {
         
     }//loadLevel
     
+    func restartLevel(action: UIAlertAction)
+    {
+        solutions.removeAll(keepingCapacity: true)
+        loadLevel()
+        showLetterButtons()
+    }
+    
+    func showLetterButtons()
+    {
+        for button in letterButtons
+        {
+            button.isHidden = false
+            hiddenButtons -= 1
+        }
+    }
     
 }//UIViewController
 

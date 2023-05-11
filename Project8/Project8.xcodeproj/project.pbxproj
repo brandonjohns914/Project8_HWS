@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		418EADED2A0B15EC0034AF0A /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 418EADEC2A0B15EC0034AF0A /* level1.txt */; };
+		4163D7D32A0C4F9C00F75656 /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4163D7D22A0C4F9C00F75656 /* level1.txt */; };
 		418EADEF2A0B15FC0034AF0A /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 418EADEE2A0B15FC0034AF0A /* level2.txt */; };
 		418EADF12A0B15FF0034AF0A /* level3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 418EADF02A0B15FF0034AF0A /* level3.txt */; };
 		419CD02829FB44CE000CB77D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419CD02729FB44CE000CB77D /* AppDelegate.swift */; };
@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		418EADEC2A0B15EC0034AF0A /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
+		4163D7D22A0C4F9C00F75656 /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
 		418EADEE2A0B15FC0034AF0A /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
 		418EADF02A0B15FF0034AF0A /* level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level3.txt; sourceTree = "<group>"; };
 		419CD02429FB44CE000CB77D /* Project8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project8.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +69,7 @@
 				419CD03029FB44D0000CB77D /* Assets.xcassets */,
 				419CD03229FB44D0000CB77D /* LaunchScreen.storyboard */,
 				419CD03529FB44D0000CB77D /* Info.plist */,
-				418EADEC2A0B15EC0034AF0A /* level1.txt */,
+				4163D7D22A0C4F9C00F75656 /* level1.txt */,
 				418EADEE2A0B15FC0034AF0A /* level2.txt */,
 				418EADF02A0B15FF0034AF0A /* level3.txt */,
 			);
@@ -137,7 +137,7 @@
 				418EADEF2A0B15FC0034AF0A /* level2.txt in Resources */,
 				418EADF12A0B15FF0034AF0A /* level3.txt in Resources */,
 				419CD03429FB44D0000CB77D /* LaunchScreen.storyboard in Resources */,
-				418EADED2A0B15EC0034AF0A /* level1.txt in Resources */,
+				4163D7D32A0C4F9C00F75656 /* level1.txt in Resources */,
 				419CD03129FB44D0000CB77D /* Assets.xcassets in Resources */,
 				419CD02F29FB44CE000CB77D /* Main.storyboard in Resources */,
 			);
